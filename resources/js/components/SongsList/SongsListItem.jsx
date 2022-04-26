@@ -11,7 +11,7 @@ export default function SongsListItem(props) {
                 <div className="lower-text text-xl font-bold">{props.name}</div>
             </div>
             <div className="right-info">
-                <i className="fa-solid fa-circle-play text-gray-200 text-2xl transition ease duration-300 group-hover:text-yellow-500"></i>
+                <i className="fa-solid fa-circle-play text-gray-200 text-2xl transition ease duration-300 group-hover:text-[#9D921C]"></i>
             </div>
 
             <div className="line h-[2px] w-full absolute bottom-0 left-0 rounded-sm bg-white mt-10 translate-x-[-100%] group-hover:translate-x-[0] transition ease-in-out delay-150 duration-[0.5s]"></div>
