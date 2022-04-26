@@ -2,7 +2,11 @@ const colors = require("tailwindcss/colors");
 
 module.exports = {
     mode: "jit",
-    content: ["./src/**/*.{html,js,jsx}"],
+    content: [
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.jsx",
+    ],
     theme: {
         extend: {},
         colors: {
