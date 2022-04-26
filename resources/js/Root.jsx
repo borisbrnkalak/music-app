@@ -1,10 +1,13 @@
 import React, { Fragment } from "react";
 import { createRoot } from "react-dom/client";
+import MusicPlayer from "./components/Layout/MusicPlayer";
+import MusicList from "./components/Layout/MusicList";
 
 export default function Root() {
     return (
         <Fragment>
-            <h1>Maros je gejom a gejom bude</h1>
+            <MusicList />
+            <MusicPlayer />
         </Fragment>
     );
 }
