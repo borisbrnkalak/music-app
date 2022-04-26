@@ -15,43 +15,43 @@ const DUMMY_SONGS = [
         year: 2022,
     },
     {
-        id: "song2",
+        id: "song23",
         name: "UwU song",
         author: "Some Japanese girl",
         year: 2022,
     },
     {
-        id: "song2",
+        id: "song24",
         name: "UwU song",
         author: "Some Japanese girl",
         year: 2022,
     },
     {
-        id: "song2",
+        id: "song25",
         name: "UwU song",
         author: "Some Japanese girl",
         year: 2022,
     },
     {
-        id: "song2",
+        id: "song62",
         name: "UwU song",
         author: "Some Japanese girl",
         year: 2022,
     },
     {
-        id: "song2",
+        id: "song27",
         name: "UwU song",
         author: "Some Japanese girl",
         year: 2022,
     },
     {
-        id: "song1",
+        id: "song18",
         name: "Čierny baran",
         author: "Iby Maiga",
         year: 2020,
     },
     {
-        id: "song1",
+        id: "song19",
         name: "Čierny baran",
         author: "Iby Maiga",
         year: 2020,
@@ -59,7 +59,7 @@ const DUMMY_SONGS = [
 ];
 
 export default function MusicList() {
-    const [songsList, setSongsList] = useState(DUMMY_SONGS);
+    const [songsList] = useState(DUMMY_SONGS);
 
     return (
         <div className="w-[30rem] fixed top-0 left-0 h-screen gradient px-10 py-14 shadow-xl">

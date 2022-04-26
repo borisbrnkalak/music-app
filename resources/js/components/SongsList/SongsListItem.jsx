@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function SongsListItem(props) {
     return (
@@ -17,3 +18,9 @@ export default function SongsListItem(props) {
         </li>
     );
 }
+
+SongsListItem.propTypes = {
+    author: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
