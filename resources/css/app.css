@@ -11,4 +11,24 @@
             #0f0c29
         ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
+
+    /* width */
+    .scrollbar::-webkit-scrollbar {
+        @apply rounded-md w-2;
+    }
+
+    /* Track */
+    .scrollbar::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    /* Handle */
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 }
