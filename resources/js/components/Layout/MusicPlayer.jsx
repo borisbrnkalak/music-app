@@ -25,7 +25,7 @@ export default function MusicPlayer() {
                     {/* Author image */}
                     <div className="w-5/6 bg-gray-900 h-[30rem] rounded-lg text-white p-4 mx-auto">
                         <img
-                            src="https://i.ytimg.com/vi/-2pX1S7NhPc/maxresdefault.jpg"
+                            src="https://i.pinimg.com/originals/0a/4d/cb/0a4dcb92fa2d3c601b58d72720d6bec4.jpg"
                             className="w-full h-full object-cover rounded-md shadow-lg shadow-gray-800"
                             alt=""
                         />
