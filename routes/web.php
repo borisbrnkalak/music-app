@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// ? Match all routes, to return REACT View
+Route::get('/{any}', function () {
+    return view('app');
+})->where('any', '.*');
