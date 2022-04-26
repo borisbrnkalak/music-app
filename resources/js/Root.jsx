@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import MusicPlayer from "./components/Layout/MusicPlayer";
 import MusicList from "./components/Layout/MusicList";
 
 export default function Root() {
     return (
-        <Fragment>
+        <div className="w-full relative">
             <MusicList />
             <MusicPlayer />
-        </Fragment>
+        </div>
     );
 }
 
