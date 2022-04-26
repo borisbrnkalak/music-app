@@ -20,7 +20,7 @@ export default function MusicPlayer() {
 
     return (
         <div className="w-[calc(100%-30rem)] mr-0 ml-auto bg-[#08081E] min-h-screen">
-            <div className="w-full h-screen flex items-center justify-center">
+            <div className="w-full min-h-screen flex items-center justify-center py-20">
                 <div className="w-full max-w-xl">
                     {/* Author image */}
                     <div className="w-5/6 bg-gray-900 h-[30rem] rounded-lg text-white p-4 mx-auto">
