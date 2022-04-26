@@ -8,7 +8,7 @@ export default function SongsListItem(props) {
                 <div className="upper-text">
                     {`${props.author} • ${props.year}`}
                 </div>
-                <div className="lower-text">{props.name}</div>
+                <div className="lower-text text-xl font-bold">{props.name}</div>
             </div>
             <div className="right-info">
                 <i className="fa-solid fa-circle-play text-gray-200 text-2xl transition ease duration-300 group-hover:text-yellow-500"></i>

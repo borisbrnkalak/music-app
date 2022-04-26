@@ -8,6 +8,9 @@ module.exports = {
         "./resources/**/*.jsx",
     ],
     theme: {
+        fontFamily: {
+            koho: ["KoHo", "sans-serif"],
+        },
         extend: {},
         colors: {
             transparent: "transparent",

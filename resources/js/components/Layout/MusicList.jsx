@@ -63,7 +63,7 @@ export default function MusicList() {
 
     return (
         <div className="w-[30rem] fixed top-0 left-0 h-screen gradient px-10 py-14 shadow-xl">
-            <h1 className="mb-16 text-3xl text-white">
+            <h1 className="mb-16 text-4xl text-white">
                 Poľský <span className="uppercase font-bold">Cringe</span>
             </h1>
             <SongsList songs={songsList} />
