@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
             $table->string('name', 191);
-            $table->string('author', 191);
-            $table->integer('year');
+            $table->string('author', 191)->nullable();
+            $table->integer('year')->nullable();
             $table->integer('duration');
-            $table->tinyInteger('is_favourite');
+            $table->boolean('is_favourite')->default(0);
             $table->timestamps();
         });
     }
