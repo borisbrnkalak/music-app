@@ -1,15 +1,13 @@
 import React from "react";
 import SongsListItem from "./SongsListItem";
 import PropTypes from "prop-types";
-import { Scrollbar } from "react-scrollbars-custom";
+import SimpleBar from "simplebar-react";
+import "./simplebar.css";
 
 export default function SongsList(props) {
     return (
-        <Scrollbar
-            className="scrollbar"
-            style={{ height: `calc(100% - 100px)` }}
-        >
-            <div className="scrollbar h-[calc(100%-100px)] pr-4">
+        <SimpleBar style={{ height: `calc(100% - 100px)` }}>
+            <div className="scrollbar h-full pr-8">
                 <ul>
                     {props.songs.map((item) => {
                         return (
@@ -23,7 +21,7 @@ export default function SongsList(props) {
                     })}
                 </ul>
             </div>
-        </Scrollbar>
+        </SimpleBar>
     );
 }
 
