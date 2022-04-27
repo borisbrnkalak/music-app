@@ -1,3 +1,5 @@
+import axios from "axios";
+import { isEmpty, isNull } from "lodash";
 import React, { useState } from "react";
 import AddInput from "../AddInput/AddInput";
 import RepeatButton from "../RepeatButton";
@@ -10,6 +12,8 @@ export default function MusicPlayer() {
     const [songName, setSongName] = useState("");
     const [songAuthor, setSongAuthor] = useState("");
     const [songYear, setSongYear] = useState("");
+    const [songFile, setSongFile] = useState("");
+    const [imageFile, setImageFile] = useState("");
 
     const toggleAddShelf = () => {
         setIsOpened(!isOpened);
@@ -23,6 +27,32 @@ export default function MusicPlayer() {
     };
     const onNumberChange = (event) => {
         setSongYear(event.target.value);
+    };
+    const onSongFileChange = (event) => {
+        setSongFile(event.target.files[0]);
+    };
+    const onImageFileChange = (event) => {
+        setImageFile(event.target.files[0]);
+    };
+
+    const submit = async () => {
+        if (isNull(songFile) || isEmpty(songName)) {
+            return;
+        }
+
+        const fd = new FormData();
+        fd.append("name", songName);
+        fd.append("author", songAuthor);
+        fd.append("year", songYear);
+        fd.append("song", songFile);
+        fd.append("image", imageFile);
+
+        try {
+            const res = await axios.post(`${location.origin}/api/songs`, fd);
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const onShuffle = (e, shuffleMode) => {
@@ -58,7 +88,13 @@ export default function MusicPlayer() {
                     }`}
                 >
                     <div className="py-8">
-                        <form action="" className="">
+                        <form
+                            action=""
+                            className=""
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                            }}
+                        >
                             <div className="flex justify-evenly gap-4 flex-wrap">
                                 <AddInput
                                     label="Nazov"
@@ -77,16 +113,25 @@ export default function MusicPlayer() {
                                     onChange={onNumberChange}
                                 />
                                 <div className="bg-gray-900 rounded-md border-none text-gray-200">
-                                    <input type="file" className="p-2" />
+                                    <input
+                                        type="file"
+                                        className="p-2"
+                                        onChange={onSongFileChange}
+                                    />
                                 </div>
                                 <div className="bg-gray-900 rounded-md border-none text-gray-200">
-                                    <input type="file" className="p-2" />
+                                    <input
+                                        type="file"
+                                        className="p-2"
+                                        onChange={onImageFileChange}
+                                    />
                                 </div>
                             </div>
                             <div className="flex justify-end mt-3">
                                 <button
                                     type="submit"
                                     className="rounded-md bg-[#ba10c9] py-3 px-6 text-gray-200 min-w-[10rem] uppercase font-bold text-lg"
+                                    onClick={submit}
                                 >
                                     Pridaj
                                 </button>
