@@ -48,7 +48,12 @@ export default function MusicPlayer() {
         fd.append("image", imageFile);
 
         try {
-            const res = await axios.post(`${location.origin}/api/songs`, fd);
+            const res = await axios.post(`${location.origin}/api/songs`, fd, {
+                headers: {
+                    accept: "application/json",
+                    "Content-Type": `multipart/form-data`,
+                },
+            });
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -112,18 +117,34 @@ export default function MusicPlayer() {
                                     type={"number"}
                                     onChange={onNumberChange}
                                 />
-                                <div className="bg-gray-900 rounded-md border-none text-gray-200">
+                                <div className="">
+                                    <label
+                                        className="text-gray-400"
+                                        htmlFor="song-file"
+                                    >
+                                        Pesnicka:
+                                    </label>
                                     <input
+                                        id="song-file"
                                         type="file"
-                                        className="p-2"
+                                        className="bg-gray-900 rounded-md border-none text-gray-200 ml-4 p-2"
                                         onChange={onSongFileChange}
+                                        accept="audio/*"
                                     />
                                 </div>
-                                <div className="bg-gray-900 rounded-md border-none text-gray-200">
+                                <div className="">
+                                    <label
+                                        className="text-gray-400"
+                                        htmlFor="image-file"
+                                    >
+                                        Obrazok:
+                                    </label>
                                     <input
+                                        id="image-file"
                                         type="file"
-                                        className="p-2"
+                                        className="bg-gray-900 rounded-md border-none text-gray-200 ml-4 p-2"
                                         onChange={onImageFileChange}
+                                        accept="image/*"
                                     />
                                 </div>
                             </div>
