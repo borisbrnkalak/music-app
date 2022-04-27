@@ -21,7 +21,7 @@ export default function SongsListItem(props) {
 }
 
 SongsListItem.propTypes = {
-    author: PropTypes.string.isRequired,
+    author: PropTypes.string,
     name: PropTypes.string.isRequired,
-    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

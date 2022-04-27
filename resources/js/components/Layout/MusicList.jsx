@@ -1,72 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import SongsList from "../SongsList";
-
-const DUMMY_SONGS = [
-    {
-        id: "song1",
-        name: "Čierny baran",
-        author: "Iby Maiga",
-        year: 2020,
-    },
-    {
-        id: "song2",
-        name: "UwU song",
-        author: "Some Japanese girl",
-        year: 2022,
-    },
-    {
-        id: "song23",
-        name: "UwU song",
-        author: "Some Japanese girl",
-        year: 2022,
-    },
-    {
-        id: "song24",
-        name: "UwU song",
-        author: "Some Japanese girl",
-        year: 2022,
-    },
-    {
-        id: "song25",
-        name: "UwU song",
-        author: "Some Japanese girl",
-        year: 2022,
-    },
-    {
-        id: "song62",
-        name: "UwU song",
-        author: "Some Japanese girl",
-        year: 2022,
-    },
-    {
-        id: "song27",
-        name: "UwU song",
-        author: "Some Japanese girl",
-        year: 2022,
-    },
-    {
-        id: "song18",
-        name: "Čierny baran",
-        author: "Iby Maiga",
-        year: 2020,
-    },
-    {
-        id: "song19",
-        name: "Čierny baran",
-        author: "Iby Maiga",
-        year: 2020,
-    },
-];
+import AppContext from "../../store/app-context";
 
 export default function MusicList() {
-    const [songsList] = useState(DUMMY_SONGS);
+    const { songs } = useContext(AppContext);
 
     return (
         <div className="w-[30rem] fixed top-0 left-0 h-screen gradient px-10 py-14 shadow-xl">
             <h1 className="mb-16 text-4xl text-white">
                 Poľský <span className="uppercase font-bold">Cringe</span>
             </h1>
-            <SongsList songs={songsList} />
+            <SongsList songs={songs} />
         </div>
     );
 }
