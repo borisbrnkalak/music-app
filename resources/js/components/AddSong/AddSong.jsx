@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { isEmpty, isNull } from "lodash";
 import AddInput from "../AddInput/AddInput";
+import AppContext from "../../store/app-context";
 
 export default function AddSong() {
     const [isOpened, setIsOpened] = useState(false);
     const [songName, setSongName] = useState("");
     const [songAuthor, setSongAuthor] = useState("");
-    const [songYear, setSongYear] = useState("");
-    const [songFile, setSongFile] = useState("");
-    const [imageFile, setImageFile] = useState("");
+    const [songYear, setSongYear] = useState(0);
+    const [songFile, setSongFile] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
+
+    const { songs, setSongs } = useContext(AppContext);
 
     const toggleAddShelf = () => {
         setIsOpened(!isOpened);
@@ -50,6 +53,8 @@ export default function AddSong() {
                     "Content-Type": `multipart/form-data`,
                 },
             });
+
+            setSongs([res.data.song, ...songs]);
             console.log(res);
         } catch (error) {
             console.log(error);
