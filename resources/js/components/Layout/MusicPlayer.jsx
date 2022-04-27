@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import AddInput from "../AddInput/AddInput";
 import RepeatButton from "../RepeatButton";
 import ShuffleButton from "../ShuffleButton";
 import SmallMusicButton from "../SmallMusicButton";
 import SongDurationText from "../SongDurationText";
 
 export default function MusicPlayer() {
+    const [isOpened, setIsOpened] = useState(false);
+
+    const toggleAddShelf = () => {
+        setIsOpened(!isOpened);
+    };
+
+    const onNameChange = () => {
+        console.log("change onNameChange");
+    };
+    const onAuthorChange = () => {
+        console.log("change onAuthorChange");
+    };
+    const onNumberChange = () => {
+        console.log("change onNumberChange");
+    };
+
     const onShuffle = (e, shuffleMode) => {
         console.log("SHUFFLE", shuffleMode);
     };
@@ -20,6 +37,49 @@ export default function MusicPlayer() {
 
     return (
         <div className="w-[calc(100%-30rem)] mr-0 ml-auto bg-[#08081E] min-h-screen">
+            <div className="w-full bg-gray-800 p-4 ">
+                <div className="flex justify-end w-full">
+                    <button
+                        onClick={toggleAddShelf}
+                        className={`text-2xl text-gray-400 hover:text-gray-200 ${
+                            isOpened ? "text-gray-200" : ""
+                        }`}
+                    >
+                        <i className="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+
+                <div
+                    className={`w-full overflow-hidden max-h-0 transition-all duration-300 ${
+                        isOpened ? "max-h-[10rem]" : ""
+                    }`}
+                >
+                    <div className="py-8">
+                        <form action="" className="">
+                            <div className="flex justify-evenly">
+                                <AddInput
+                                    label="Nazov"
+                                    name="name"
+                                    onChange={onNameChange}
+                                />
+                                <AddInput
+                                    label="Autor"
+                                    name="name"
+                                    onChange={onAuthorChange}
+                                />
+                                <AddInput
+                                    label="Rok"
+                                    name="name"
+                                    type={"number"}
+                                    onChange={onNumberChange}
+                                />
+                                <input type="file" />
+                                <input type="file" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div className="w-full min-h-screen flex items-center justify-center py-20">
                 <div className="w-full max-w-xl">
                     {/* Author image */}
