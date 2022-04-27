@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddSongRequest;
+use App\Http\Resources\SongResource;
+use App\Models\File;
 use App\Models\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +19,9 @@ class SongController extends Controller
      */
     public function index()
     {
-        //
+        $songs = Song::with(['songFile', 'imageFile'])->get();
+
+        return response()->json(['songs' => SongResource::collection($songs)]);
     }
 
     /**
@@ -28,14 +32,40 @@ class SongController extends Controller
      */
     public function store(AddSongRequest $request)
     {
-        Song::create($request->except(['image', 'song']));
+        $songData = $request->except(['image', 'song']);
+        $disk = Storage::disk('public');
+
         $song = $request->file('song');
+        $songFileName = 'audio/' . sha1($song->getClientOriginalName()) . "/" . $song->hashName();
+        $disk->put('audio/' . sha1($song->getClientOriginalName()), $song);
+
+        $audioInfo = new Mp3Info($disk->path($songFileName));
+        $songData['duration'] = ceil($audioInfo->duration);
+
+        $newSong = Song::create($songData);
+
+        File::create([
+            'song_id' => $newSong->id,
+            'source' => $songFileName,
+            'filename' => $song->getClientOriginalName(),
+            'size' => $song->getSize(),
+        ]);
+
         $image = $request->file('image');
-        Storage::disk('public')->put('audio/' . $song->hashName(), $song);
+        if (!is_null($image)) {
+            $imageFilePath = 'images/' . sha1($image->getClientOriginalName()) . "/" . $image->hashName();
+            $disk->put('images/' . sha1($image->getClientOriginalName()), $image);
+            File::create([
+                'song_id' => $newSong->id,
+                'source' => $imageFilePath,
+                'filename' => $song->getClientOriginalName(),
+                'size' => $song->getSize(),
+                'is_image' => 1
+            ]);
+        }
 
+        $newSong->load(['songFile', 'imageFile']);
 
-        $audio = new Mp3Info(Storage::disk('public')->path('audio/' . $song->hashName()));
-
-        Storage::disk('public')->put('images/', $image);
+        return response()->json(['song' => new SongResource($newSong)]);
     }
 }

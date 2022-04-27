@@ -13,7 +13,7 @@ class AddSongRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,10 +25,10 @@ class AddSongRequest extends FormRequest
     {
         return [
             'name' => "required|string",
-            'author' => "string",
-            'year' => "integer|digits:4",
+            'author' => "nullable|string",
+            'year' => "nullable|integer|digits:4",
             'song' => 'required|mimes:mp3,wav,ogg',
-            'image' => 'mimes:png,jpg,jpeg,webp'
+            'image' => 'nullable|mimes:png,jpg,jpeg,webp'
         ];
     }
 }
