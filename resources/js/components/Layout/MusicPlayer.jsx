@@ -7,19 +7,22 @@ import SongDurationText from "../SongDurationText";
 
 export default function MusicPlayer() {
     const [isOpened, setIsOpened] = useState(false);
+    const [songName, setSongName] = useState("");
+    const [songAuthor, setSongAuthor] = useState("");
+    const [songYear, setSongYear] = useState("");
 
     const toggleAddShelf = () => {
         setIsOpened(!isOpened);
     };
 
-    const onNameChange = () => {
-        console.log("change onNameChange");
+    const onNameChange = (event) => {
+        setSongName(event.target.value);
     };
-    const onAuthorChange = () => {
-        console.log("change onAuthorChange");
+    const onAuthorChange = (event) => {
+        setSongAuthor(event.target.value);
     };
-    const onNumberChange = () => {
-        console.log("change onNumberChange");
+    const onNumberChange = (event) => {
+        setSongYear(event.target.value);
     };
 
     const onShuffle = (e, shuffleMode) => {
@@ -51,12 +54,12 @@ export default function MusicPlayer() {
 
                 <div
                     className={`w-full overflow-hidden max-h-0 transition-all duration-300 ${
-                        isOpened ? "max-h-[10rem]" : ""
+                        isOpened ? "max-h-[14rem]" : ""
                     }`}
                 >
                     <div className="py-8">
                         <form action="" className="">
-                            <div className="flex justify-evenly">
+                            <div className="flex justify-evenly gap-4 flex-wrap">
                                 <AddInput
                                     label="Nazov"
                                     name="name"
@@ -73,8 +76,20 @@ export default function MusicPlayer() {
                                     type={"number"}
                                     onChange={onNumberChange}
                                 />
-                                <input type="file" />
-                                <input type="file" />
+                                <div className="bg-gray-900 rounded-md border-none text-gray-200">
+                                    <input type="file" className="p-2" />
+                                </div>
+                                <div className="bg-gray-900 rounded-md border-none text-gray-200">
+                                    <input type="file" className="p-2" />
+                                </div>
+                            </div>
+                            <div className="flex justify-end mt-3">
+                                <button
+                                    type="submit"
+                                    className="rounded-md bg-[#ba10c9] py-3 px-6 text-gray-200 min-w-[10rem] uppercase font-bold text-lg"
+                                >
+                                    Pridaj
+                                </button>
                             </div>
                         </form>
                     </div>
