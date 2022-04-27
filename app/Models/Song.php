@@ -16,4 +16,14 @@ class Song extends Model
         'duration',
         'is_favourite'
     ];
+
+    public function songFile()
+    {
+        return $this->hasOne(File::class)->where('is_image', '=', '0');
+    }
+
+    public function imageFile()
+    {
+        return $this->hasOne(File::class)->where('is_image', '=', '1');
+    }
 }

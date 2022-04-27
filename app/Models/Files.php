@@ -16,4 +16,9 @@ class Files extends Model
         'song_id',
         'is_image'
     ];
+
+    public function songCover()
+    {
+        return $this->belongsTo(File::class)->where('is_image', '=', '1');
+    }
 }
