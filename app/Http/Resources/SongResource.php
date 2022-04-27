@@ -20,8 +20,8 @@ class SongResource extends JsonResource
             'author' => $this->author,
             'year' => $this->year,
             'duration' => $this->duration,
-            'audio' => new ImageResource($this->songFile),
-            'image' => new ImageResource($this->imageFile)
+            'audio' => new FileResource($this->songFile),
+            'image' => new FileResource($this->imageFile)
         ];
     }
 }
