@@ -20,7 +20,7 @@ class SongController extends Controller
      */
     public function index()
     {
-        $songs = Song::with(['songFile'])->get();
+        $songs = Song::with(['songFile'])->latest()->get();
 
         return response()->json(['songs' => SongResource::collection($songs)]);
     }
