@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default function PlayerProvider(props) {
     const [songs, setSongs] = useState([]);
-    const [activeSong, setActiveSong] = useState(null);
+    const [activeSongIndex, setActiveSongIndex] = useState(null);
 
     useEffect(() => {
         async function loadSongs() {
@@ -14,19 +14,7 @@ export default function PlayerProvider(props) {
                 console.log(res);
                 if (res.data.songs.length < 1) throw "No songs in database";
                 setSongs(res.data.songs);
-
-                setActiveSong(
-                    res.data.songs[0]
-                        ? res.data.songs[0]
-                        : {
-                              id: -1,
-                              name: "No song selected",
-                              author: null,
-                              year: null,
-                              duration: null,
-                              audio: null,
-                          }
-                );
+                setActiveSongIndex(0);
             } catch (error) {
                 console.error(error);
             }
@@ -39,8 +27,8 @@ export default function PlayerProvider(props) {
             value={{
                 songs: songs,
                 setSongs: setSongs,
-                activeSong: activeSong,
-                setActiveSong: setActiveSong,
+                activeSongIndex: activeSongIndex,
+                setActiveSongIndex: setActiveSongIndex,
             }}
         >
             {props.children}

@@ -5,12 +5,12 @@ import AppContext from "../../store/app-context";
 export default function SongsListItem(props) {
     //That yellow #f7ec77
 
-    const { activeSong, setActiveSong } = useContext(AppContext);
+    const { setActiveSongIndex } = useContext(AppContext);
     const [selected, setSelected] = useState(false);
 
     const selectSpecificSong = () => {
         setSelected(!selected);
-        setActiveSong(props.song);
+        setActiveSongIndex(props.index);
     };
 
     return (
@@ -25,7 +25,11 @@ export default function SongsListItem(props) {
                 <div className="lower-text text-xl font-bold">{props.name}</div>
             </div>
             <div className="right-info">
-                <i className={`fa-solid fa-circle-play text-gray-200 text-2xl transition ease duration-300 group-hover:text-[#9d65c9] ${selected ? 'text-[#9d65c9]' : ''}`}></i>
+                <i
+                    className={`fa-solid fa-circle-play text-gray-200 text-2xl transition ease duration-300 group-hover:text-[#9d65c9] ${
+                        selected ? "text-[#9d65c9]" : ""
+                    }`}
+                ></i>
             </div>
 
             <div
@@ -41,5 +45,5 @@ SongsListItem.propTypes = {
     author: PropTypes.string,
     name: PropTypes.string.isRequired,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    song: PropTypes.object,
+    index: PropTypes.number.isRequired,
 };

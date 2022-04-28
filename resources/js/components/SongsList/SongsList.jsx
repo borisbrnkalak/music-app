@@ -9,14 +9,14 @@ export default function SongsList(props) {
         <SimpleBar style={{ height: `calc(100% - 100px)` }}>
             <div className="scrollbar h-full pr-8">
                 <ul>
-                    {props.songs.map((item) => {
+                    {props.songs.map((item, index) => {
                         return (
                             <SongsListItem
                                 key={item.id}
                                 name={item.name}
                                 author={item.author}
                                 year={item.year}
-                                song={item}
+                                index={index}
                             />
                         );
                     })}
