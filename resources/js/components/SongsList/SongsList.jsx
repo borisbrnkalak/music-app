@@ -16,6 +16,7 @@ export default function SongsList(props) {
                                 name={item.name}
                                 author={item.author}
                                 year={item.year}
+                                song={item}
                             />
                         );
                     })}

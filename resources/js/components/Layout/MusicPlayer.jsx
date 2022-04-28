@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import AddSong from "../AddSong";
 import RepeatButton from "../RepeatButton";
 import ShuffleButton from "../ShuffleButton";
 import SmallMusicButton from "../SmallMusicButton";
 import SongDurationText from "../SongDurationText";
+import AppContext from "../../store/app-context";
 
 export default function MusicPlayer() {
+    const { activeSong, setActiveSong } = useContext(AppContext);
+
+    console.log(activeSong);
+
     const onShuffle = (e, shuffleMode) => {
         console.log("SHUFFLE", shuffleMode);
     };
@@ -46,10 +51,10 @@ export default function MusicPlayer() {
                     <div className="mt-8 flex items-center justify-center">
                         <div className="text-center">
                             <h2 className="text-gray-200 text-2xl font-bold">
-                                uwu song
+                                {activeSong?.name}
                             </h2>
                             <h4 className="text-gray-400 text-lg">
-                                Japanese bitch
+                                {activeSong?.author ? activeSong.author : ""}
                             </h4>
                         </div>
                     </div>

@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import AppContext from "../../store/app-context";
 
 export default function SongsListItem(props) {
     //That yellow #f7ec77
+
+    const { activeSong, setActiveSong } = useContext(AppContext);
+
+    const selectSpecificSong = () => {
+        setActiveSong(props.song);
+    };
+
     return (
-        <li className="flex mt-6 py-3.5 justify-between items-center group hover:cursor-pointer relative first:mt-0 overflow-x-hidden ">
+        <li
+            onClick={selectSpecificSong}
+            className="flex mt-6 py-3.5 justify-between items-center group hover:cursor-pointer relative first:mt-0 overflow-x-hidden "
+        >
             <div className="left-info text-white">
                 <div className="upper-text">
                     {`${props.author} • ${props.year}`}
@@ -24,4 +35,5 @@ SongsListItem.propTypes = {
     author: PropTypes.string,
     name: PropTypes.string.isRequired,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    song: PropTypes.object,
 };

@@ -36,7 +36,7 @@ export default function AddSong() {
                 },
             });
 
-            setSongs([res.data.song, ...songs]);
+            setSongs([...res.data.songs, ...songs]);
             console.log(res);
         } catch (error) {
             console.log(error);

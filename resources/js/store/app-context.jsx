@@ -3,8 +3,8 @@ import React from "react";
 const AppContext = React.createContext({
     songs: [],
     setSongs: () => {},
-    index: null,
-    setIndex: () => {},
+    activeSong: null,
+    setActiveSong: () => {},
 });
 
 export default AppContext;
