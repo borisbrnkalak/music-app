@@ -17,9 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name', 191);
             $table->string('author', 191)->nullable();
+            $table->string('album', 191)->nullable();
             $table->integer('year')->nullable();
+            $table->string('genre', 191)->nullable();
             $table->integer('duration');
-            $table->boolean('is_favourite')->default(0);
+            $table->boolean('has_cover')->default(0);
+            $table->boolean('is_favorite')->default(0);
             $table->timestamps();
         });
     }

@@ -12,18 +12,16 @@ class Song extends Model
     protected $fillable = [
         'name',
         'author',
+        'album',
         'year',
+        'genre',
         'duration',
-        'is_favourite'
+        'has_cover',
+        'is_favorite',
     ];
 
     public function songFile()
     {
         return $this->hasOne(File::class)->where('is_image', '=', '0');
-    }
-
-    public function imageFile()
-    {
-        return $this->hasOne(File::class)->where('is_image', '=', '1');
     }
 }

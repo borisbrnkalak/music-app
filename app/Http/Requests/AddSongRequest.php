@@ -24,11 +24,7 @@ class AddSongRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => "required|string",
-            'author' => "nullable|string",
-            'year' => "nullable|integer|digits:4",
-            'song' => 'required|mimes:mp3,wav,ogg',
-            'image' => 'nullable|mimes:png,jpg,jpeg,webp'
+            'songs.*' => 'required|mimes:mp3,wav,ogg',
         ];
     }
 }

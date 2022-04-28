@@ -21,7 +21,6 @@ class SongResource extends JsonResource
             'year' => $this->year,
             'duration' => $this->duration,
             'audio' => new FileResource($this->songFile),
-            'image' => new FileResource($this->imageFile)
         ];
     }
 }
