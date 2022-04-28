@@ -14,6 +14,7 @@ export default function PlayerProvider(props) {
                 console.log(res);
                 if (res.data.songs.length < 1) throw "No songs in database";
                 setSongs(res.data.songs);
+
                 setActiveSong(
                     res.data.songs[0]
                         ? res.data.songs[0]
@@ -24,7 +25,6 @@ export default function PlayerProvider(props) {
                               year: null,
                               duration: null,
                               audio: null,
-                              image: null,
                           }
                 );
             } catch (error) {
