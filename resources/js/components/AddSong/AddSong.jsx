@@ -1,16 +1,12 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import { isEmpty, isNull } from "lodash";
+import { isNull } from "lodash";
 import AddInput from "../AddInput/AddInput";
 import AppContext from "../../store/app-context";
 
 export default function AddSong() {
     const [isOpened, setIsOpened] = useState(false);
-    const [songName, setSongName] = useState("");
-    const [songAuthor, setSongAuthor] = useState("");
-    const [songYear, setSongYear] = useState(0);
-    const [songFile, setSongFile] = useState(null);
-    const [imageFile, setImageFile] = useState(null);
+    const [songFiles, setSongFiles] = useState(null);
 
     const { songs, setSongs } = useContext(AppContext);
 
@@ -18,33 +14,19 @@ export default function AddSong() {
         setIsOpened(!isOpened);
     };
 
-    const onNameChange = (event) => {
-        setSongName(event.target.value);
-    };
-    const onAuthorChange = (event) => {
-        setSongAuthor(event.target.value);
-    };
-    const onNumberChange = (event) => {
-        setSongYear(event.target.value);
-    };
     const onSongFileChange = (event) => {
-        setSongFile(event.target.files[0]);
-    };
-    const onImageFileChange = (event) => {
-        setImageFile(event.target.files[0]);
+        setSongFiles(event.target.files);
     };
 
     const submit = async () => {
-        if (isNull(songFile) || isEmpty(songName)) {
+        if (isNull(songFiles)) {
             return;
         }
 
         const fd = new FormData();
-        fd.append("name", songName);
-        fd.append("author", songAuthor);
-        fd.append("year", songYear);
-        fd.append("song", songFile);
-        fd.append("image", imageFile);
+        Array.from(songFiles).map((song, counter) => {
+            fd.append(`songs[${counter}]`, song);
+        });
 
         try {
             const res = await axios.post(`${location.origin}/api/songs`, fd, {
@@ -87,29 +69,13 @@ export default function AddSong() {
                             e.preventDefault();
                         }}
                     >
-                        <div className="flex justify-evenly gap-4 flex-wrap">
-                            <AddInput
-                                label="Nazov"
-                                name="name"
-                                onChange={onNameChange}
-                            />
-                            <AddInput
-                                label="Autor"
-                                name="name"
-                                onChange={onAuthorChange}
-                            />
-                            <AddInput
-                                label="Rok"
-                                name="name"
-                                type={"number"}
-                                onChange={onNumberChange}
-                            />
+                        <div className="flex justify-evenly gap-4 flex-wrap items-center">
                             <div className="">
                                 <label
                                     className="text-gray-400"
                                     htmlFor="song-file"
                                 >
-                                    Pesnicka:
+                                    Pesnicky:
                                 </label>
                                 <input
                                     id="song-file"
@@ -117,32 +83,18 @@ export default function AddSong() {
                                     className="bg-gray-900 rounded-md border-none text-gray-200 ml-4 p-2"
                                     onChange={onSongFileChange}
                                     accept="audio/*"
+                                    multiple={true}
                                 />
                             </div>
-                            <div className="">
-                                <label
-                                    className="text-gray-400"
-                                    htmlFor="image-file"
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    className="rounded-md bg-[#ba10c9] py-3 px-6 text-gray-200 min-w-[10rem] uppercase font-bold text-lg"
+                                    onClick={submit}
                                 >
-                                    Obrazok:
-                                </label>
-                                <input
-                                    id="image-file"
-                                    type="file"
-                                    className="bg-gray-900 rounded-md border-none text-gray-200 ml-4 p-2"
-                                    onChange={onImageFileChange}
-                                    accept="image/*"
-                                />
+                                    Pridaj
+                                </button>
                             </div>
-                        </div>
-                        <div className="flex justify-end mt-3">
-                            <button
-                                type="submit"
-                                className="rounded-md bg-[#ba10c9] py-3 px-6 text-gray-200 min-w-[10rem] uppercase font-bold text-lg"
-                                onClick={submit}
-                            >
-                                Pridaj
-                            </button>
                         </div>
                     </form>
                 </div>
