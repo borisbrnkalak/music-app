@@ -1,18 +1,31 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+    useCallback,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import AddSong from "../AddSong";
 import RepeatButton from "../RepeatButton";
 import ShuffleButton from "../ShuffleButton";
 import SmallMusicButton from "../SmallMusicButton";
 import SongDurationText from "../SongDurationText";
 import AppContext from "../../store/app-context";
-import { isUndefined } from "lodash";
+import { isNaN, isNull, isUndefined } from "lodash";
 import useAudio from "../../hooks/useAudio";
+import * as mm from "music-metadata-browser";
+
+const defaultImageUrl =
+    "https://i.pinimg.com/originals/0a/4d/cb/0a4dcb92fa2d3c601b58d72720d6bec4.jpg";
 
 export default function MusicPlayer() {
     const { songs, activeSongIndex, setActiveSongIndex } =
         useContext(AppContext);
-    const [userDuration, setUserDuration] = useState(0);
+    const [trackProgress, setTrackProgress] = useState(0);
     const [activeSong, setActiveSong] = useState({});
+
+    const imageRef = useRef(null);
+    const interval = useRef(null);
 
     const audio = useAudio(activeSong?.audio?.url);
 
@@ -21,7 +34,7 @@ export default function MusicPlayer() {
     };
 
     const onRepeat = (e, repeatMode) => {
-        console.log("REPEAT", repeatMode);
+        audio.loop = repeatMode;
     };
 
     const onPrev = () => {
@@ -30,15 +43,14 @@ export default function MusicPlayer() {
         } else {
             setActiveSongIndex(activeSongIndex - 1);
         }
-        console.log("PREV");
     };
+
     const onNext = () => {
         if (activeSongIndex < songs.length - 1) {
             setActiveSongIndex(activeSongIndex + 1);
         } else {
             setActiveSongIndex(0);
         }
-        console.log("NEXT");
     };
 
     const onPlayButtonClick = () => {
@@ -46,11 +58,13 @@ export default function MusicPlayer() {
     };
 
     const onMusicBarChange = (e) => {
-        if (isUndefined(activeSong?.duration)) {
+        if (isUndefined(audio.duration)) {
             return;
         }
-        const percentage = e.target.value / 100;
-        setUserDuration(Math.ceil(percentage * activeSong?.duration));
+        clearInterval(interval.current);
+        audio.currentTime = e.target.value;
+        setTrackProgress(e.target.value);
+        startInterval();
     };
 
     const getDurationStringFromSeconds = useCallback(
@@ -63,7 +77,43 @@ export default function MusicPlayer() {
 
     useEffect(() => {
         setActiveSong(songs[activeSongIndex]);
+
+        startInterval();
     }, [songs, activeSongIndex]);
+
+    const startInterval = () => {
+        clearInterval(interval.current);
+
+        interval.current = setInterval(() => {
+            if (audio.ended) {
+                onNext();
+            } else {
+                setTrackProgress(audio.currentTime);
+            }
+        }, 100);
+    };
+
+    useEffect(() => {
+        async function fetchBla() {
+            try {
+                if (isUndefined(activeSong?.audio?.url)) {
+                    return;
+                }
+                const metadata = await mm.fetchFromUrl(activeSong.audio.url);
+                const cover = mm.selectCover(metadata.common.picture); // pick the cover image
+                if (!isNull(cover)) {
+                    imageRef.current.src = `data:${
+                        cover.format
+                    };base64,${cover.data.toString("base64")}`;
+                } else {
+                    imageRef.current.src = defaultImageUrl;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchBla();
+    }, [activeSong]);
 
     return (
         <div className="w-[calc(100%-30rem)] mr-0 ml-auto bg-[#08081E] min-h-screen">
@@ -73,9 +123,10 @@ export default function MusicPlayer() {
                     {/* Author image */}
                     <div className="w-5/6 bg-gray-900 h-[30rem] rounded-lg text-white p-4 mx-auto">
                         <img
-                            src="https://i.pinimg.com/originals/0a/4d/cb/0a4dcb92fa2d3c601b58d72720d6bec4.jpg"
+                            src={defaultImageUrl}
                             className="w-full h-full object-cover rounded-md shadow-lg shadow-gray-800"
                             alt=""
+                            ref={imageRef}
                         />
                     </div>
 
@@ -85,18 +136,19 @@ export default function MusicPlayer() {
                             type="range"
                             className="w-full"
                             min={0}
-                            max={100}
+                            max={audio?.duration}
+                            value={trackProgress}
                             onChange={onMusicBarChange}
                         />
                         <div className="w-full mt-2 flex items-center justify-between">
                             <SongDurationText
                                 value={getDurationStringFromSeconds(
-                                    userDuration
+                                    trackProgress
                                 )}
                             />
                             <SongDurationText
                                 value={getDurationStringFromSeconds(
-                                    activeSong?.duration
+                                    isNaN(audio?.duration) ? 0 : audio?.duration
                                 )}
                             />
                         </div>
