@@ -90,7 +90,7 @@ export default function MusicPlayer() {
             } else {
                 setTrackProgress(audio.currentTime);
             }
-        }, 100);
+        }, 1000);
     };
 
     useEffect(() => {
@@ -134,7 +134,7 @@ export default function MusicPlayer() {
                     <div className="w-full mt-12 relative">
                         <input
                             type="range"
-                            className="w-full"
+                            className="w-full cursor-pointer"
                             min={0}
                             max={audio?.duration}
                             value={trackProgress}

@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import SongsListItem from "./SongsListItem";
 import PropTypes from "prop-types";
 import SimpleBar from "simplebar-react";
 import "./simplebar.css";
 
 export default function SongsList(props) {
+
+    const [selected, setSelected] = useState(null);
+
+    const selectSong = (index) => {
+        setSelected(index);
+    }
+
     return (
         <SimpleBar style={{ height: `calc(100% - 100px)` }}>
             <div className="scrollbar h-full pr-8">
@@ -17,6 +24,8 @@ export default function SongsList(props) {
                                 author={item.author}
                                 year={item.year}
                                 index={index}
+                                selected={index === selected}
+                                onSelect={selectSong}
                             />
                         );
                     })}

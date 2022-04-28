@@ -45,7 +45,7 @@ class SongController extends Controller
             $audioInfo = new Mp3Info($disk->path($songFileName), true);
 
             $newSong = Song::create([
-                'name' => $audioInfo->tags['song'],
+                'name' => isset($audioInfo->tags['song']) ? $audioInfo->tags['song'] : pathinfo($song->getClientOriginalName(), PATHINFO_FILENAME),
                 'author' => isset($audioInfo->tags['artist']) ? $audioInfo->tags['artist'] : null,
                 'album' => isset($audioInfo->tags['album']) ? $audioInfo->tags['album'] : null,
                 'year' => isset($audioInfo->tags['year']) ? $audioInfo->tags['year'] : null,

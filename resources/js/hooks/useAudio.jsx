@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 
 export default function useAudio(audioURL) {
     const audioRef = useRef(new Audio());
+    console.log(audioRef);
 
     useEffect(() => {
         if (isUndefined(audioURL)) {
