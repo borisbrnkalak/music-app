@@ -19,8 +19,13 @@ const defaultImageUrl =
     "https://i.pinimg.com/originals/0a/4d/cb/0a4dcb92fa2d3c601b58d72720d6bec4.jpg";
 
 export default function MusicPlayer() {
-    const { songs, activeSongIndex, setActiveSongIndex } =
-        useContext(AppContext);
+    const {
+        songs,
+        activeSongIndex,
+        setActiveSongIndex,
+        isPlaying,
+        setIsPlaying,
+    } = useContext(AppContext);
     const [trackProgress, setTrackProgress] = useState(0);
     const [activeSong, setActiveSong] = useState({});
 
@@ -55,6 +60,7 @@ export default function MusicPlayer() {
 
     const onPlayButtonClick = () => {
         audio.paused ? audio.play() : audio.pause();
+        audio.paused ? setIsPlaying(false) : setIsPlaying(true);
     };
 
     const onMusicBarChange = (e) => {
@@ -180,7 +186,12 @@ export default function MusicPlayer() {
                                 className="text-6xl text-gray-200 mx-8 hover:text-blue-400 transition duration-300"
                                 onClick={onPlayButtonClick}
                             >
-                                <i className="fa-solid fa-play"></i>
+                                {" "}
+                                {isPlaying ? (
+                                    <i className="fa-solid fa-pause"></i>
+                                ) : (
+                                    <i className="fa-solid fa-play"></i>
+                                )}
                             </button>
                             <SmallMusicButton
                                 icon={

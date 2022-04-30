@@ -5,6 +5,8 @@ const AppContext = React.createContext({
     setSongs: () => {},
     activeSongIndex: null,
     setActiveSongIndex: () => {},
+    isPlaying: false,
+    setIsPlaying: () => {},
 });
 
 export default AppContext;
