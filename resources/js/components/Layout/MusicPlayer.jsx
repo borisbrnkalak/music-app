@@ -42,6 +42,10 @@ export default function MusicPlayer() {
         audio.loop = repeatMode;
     };
 
+    if (audio.paused) {
+        setIsPlaying(false);
+    }
+
     const onPrev = () => {
         if (activeSongIndex === 0) {
             setActiveSongIndex(songs.length - 1);
