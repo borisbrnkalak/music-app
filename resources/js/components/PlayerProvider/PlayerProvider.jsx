@@ -7,6 +7,7 @@ export default function PlayerProvider(props) {
     const [songs, setSongs] = useState([]);
     const [activeSongIndex, setActiveSongIndex] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [selected, setSelected] = useState(false);
 
     useEffect(() => {
         async function loadSongs() {
@@ -17,6 +18,7 @@ export default function PlayerProvider(props) {
                 setSongs(res.data.songs);
                 setIsPlaying(false);
                 setActiveSongIndex(0);
+                setSelected(0);
             } catch (error) {
                 console.error(error);
             }
@@ -33,6 +35,8 @@ export default function PlayerProvider(props) {
                 setActiveSongIndex: setActiveSongIndex,
                 isPlaying: isPlaying,
                 setIsPlaying: setIsPlaying,
+                selected: selected,
+                setSelected: setSelected,
             }}
         >
             {props.children}

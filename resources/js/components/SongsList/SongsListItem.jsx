@@ -1,13 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import AppContext from "../../store/app-context";
 
 export default function SongsListItem(props) {
-    const { setActiveSongIndex } = useContext(AppContext);
-
     const selectSpecificSong = () => {
         props.onSelect(props.index);
-        setActiveSongIndex(props.index);
     };
 
     return (
