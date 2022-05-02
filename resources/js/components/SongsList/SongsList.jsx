@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import SongsListItem from "./SongsListItem";
 import PropTypes from "prop-types";
 import SimpleBar from "simplebar-react";
@@ -6,11 +6,9 @@ import AppContext from "../../store/app-context";
 import "./simplebar.css";
 
 export default function SongsList(props) {
-    const { selected, setSelected, setActiveSongIndex, activeSongIndex } =
-        useContext(AppContext);
+    const { setActiveSongIndex, activeSongIndex } = useContext(AppContext);
 
     const selectSong = (index) => {
-        setSelected(index);
         setActiveSongIndex(index);
     };
 
